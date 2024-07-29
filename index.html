@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Meu Aplicativo Electron</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+  <style>
+    html {
+      height: 100%;
+      font-family: 'Roboto';
+    }
+    body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    #title {
+      user-select: none;
+      border-radius: 0.5rem 0.5rem 0 0;
+      background: #e5e5e5;
+      /*background-color: blueviolet;*/
+      color: black;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+    }
+    article {
+      height: -webkit-fill-available;
+      background-color: white;
+      border-radius: 0 0 0.5rem 0.5rem;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header id="title">
+    <div style="display:flex;" id="tabtn">
+      <div id="close-button" style="background:#ea696c;width:15px;height:15px;border-radius:50%;margin: 0 3px;"></div>
+      <div id="minimize-button" style="background:#e3b827;width:15px;height:15px;border-radius:50%;margin: 0 3px;"></div>
+      <div id="maximize-button" style="background:#35ad4f;width:15px;height:15px;border-radius:50%;margin: 0 3px;"></div>
+    </div>
+    <a id="titlep">finder</a>
+  </header>
+  <article>
+    <h1>Olá, Mundo!</h1>
+  </article>
+  <script>
+    const tabtn = document.getElementById('tabtn').offsetWidth;
+    document.getElementById('titlep').style.marginLeft = `calc(50% - ${tabtn}px)`
+    let rickA = new Audio("rick-astley-rickrolls-you.mp3");
+    //rickA.play();
+
+    document.getElementById('minimize-button').addEventListener('click', () => {
+      const { ipcRenderer } = require('electron');
+      ipcRenderer.send('minimize-window');
+    });
+    document.getElementById('maximize-button').addEventListener('click', () => {
+      const { ipcRenderer } = require('electron');
+      ipcRenderer.send('maximize-window');
+    });
+    document.getElementById('close-button').addEventListener('click', () => {
+      window.close()
+    });
+  </script>
+</body>
+</html>
